@@ -1,4 +1,4 @@
-<mxfile modified="2021-05-11T15:27:54.096Z" host="app.diagrams.net" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="gJegzLRg1CR_vBCx2P4S" version="14.6.11" type="github">
+<mxfile modified="2021-05-11T15:28:49.014Z" host="app.diagrams.net" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="Q0WM_v8xGVGLgLuVB-s0" version="14.6.11" type="github">
   <diagram id="Ht1M8jgEwFfnCIfOTk4-" name="Page-1">
     <mxGraphModel dx="1635" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1027" pageHeight="1269" math="0" shadow="0">
       <root>
@@ -117,6 +117,9 @@
         </mxCell>
         <mxCell id="7ugX-TRM7vWe8JuTl9ej-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Apache_kafka.svg/1200px-Apache_kafka.svg.png;" vertex="1" parent="1">
           <mxGeometry x="870" y="243" width="61.54" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="7ugX-TRM7vWe8JuTl9ej-2" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Circuit Break&lt;/b&gt;&lt;/font&gt;" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="610" width="100" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
