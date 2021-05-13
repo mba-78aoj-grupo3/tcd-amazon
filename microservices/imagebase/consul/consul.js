@@ -6,7 +6,7 @@ class ConsulConfig {
         
         //Initialize consumer
         this.consul = new Consul({
-            host: '192.168.6.128',
+            host: 'localhost',
             port: 8500,
             promisify: true,
         });
@@ -14,10 +14,10 @@ class ConsulConfig {
         //Service registration and health check configuration
         this.consul.agent.service.register({
             name: serviceName,
-            Address: '192.168.20.193', // Note: 192.168.20.193 is my local intranet IP, which can be viewed through ifconfig
+            Address: '192.168.1.8', // Note: 192.168.20.193 is my local intranet IP, which can be viewed through ifconfig
             port: 3000,
             check: {
-                http: 'http://192.168.20.193:3000/health',
+                http: 'http://192.168.1.8:3000/health',
                 interval: '10s',
                 timeout: '5s',
             }
@@ -27,7 +27,7 @@ class ConsulConfig {
                 throw err;
             }
 
-            Console.log (servicename + 'registered successfully! ).
+            Console.log (servicename + 'registered successfully!' );
         })
     }
     
@@ -35,7 +35,7 @@ class ConsulConfig {
         const result = await this.consul.kv.get(key);
 
         if (!result) {
-            Return promise.reject (Key + 'does not exist');
+            Return Promise().reject;
         }
 
         return JSON.parse(result.Value);
