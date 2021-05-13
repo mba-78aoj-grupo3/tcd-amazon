@@ -26,4 +26,4 @@ http.createServer(async (req, res) => {
             res.end('ERROR!');
         }
     }
-}). Listen (3000, '192.168.20.193'); // 192.168.20.193 is my local intranet IP, which can be viewed through ifconfig
+}). Listen (3000, '192.168.1.8'); // 192.168.20.193 is my local intranet IP, which can be viewed through ifconfig
