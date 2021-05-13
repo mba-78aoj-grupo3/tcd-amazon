@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#Postgres
+./resource/postegres/resources/data/pg_stat_tmp/*
