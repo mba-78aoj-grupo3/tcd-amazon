@@ -24,14 +24,18 @@
     "youch-terminal": "^1.1.1"
   },
   "dependencies": {
+    "@adonisjs/auth": "^8.0.3",
+    "@adonisjs/bouncer": "^2.2.1",
     "@adonisjs/core": "^5.1.6",
     "@adonisjs/lucid": "^14.0.2",
     "@adonisjs/repl": "^3.1.2",
+    "@phc/bcrypt": "^1.0.2",
     "axios": "^0.21.1",
     "kafka-node": "^5.0.0",
     "luxon": "^1.27.0",
     "opossum": "^6.0.1",
     "pg": "^8.6.0",
+    "phc-bcrypt": "^1.0.7",
     "proxy-addr": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19"

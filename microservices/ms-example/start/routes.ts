@@ -19,8 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import UserModel from 'App/Models/UserModel'
-import Notification from 'App/Entities/Notification'
+
 // Circuit Breaker
 import CircuitBreaker from 'App/circuit-breaker/CircuitBreaker'
 import CircuitBreakerOpossum from 'opossum'
@@ -30,28 +29,26 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.get('/init-kafka', async () => {
-  Notification.consumeEvents()
-
-  const user = new UserModel()
-
-  console.log('finish')
-
-  return user
+Route.get('/login', async () => {
+  return { hello: 'world' }
 })
 
-//*
+Route.resource('users', 'UsersController') //.middleware({ '*': 'auth:api' })
+
+//
+// *************************
 // * Ciruito codado, na pasta APP
 const params: AxiosRequestConfig = {
   method: 'get',
   url: 'http://localhost:3333/test',
 }
+
+const circuitBreaker = new CircuitBreaker(params)
 // *************************
 
-// *
+//
+// *************************
 // * Ciruito da lib
-const circuitBreaker = new CircuitBreaker(params)
-
 const options = {
   timeout: 3000,
   errorThresholdPercentage: 50,

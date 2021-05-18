@@ -1,7 +1,7 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class UserValidator {
+export default class UserCreateValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   /*
@@ -23,7 +23,10 @@ export default class UserValidator {
    *     ])
    *    ```
    */
-  public schema = schema.create({})
+  public schema = schema.create({
+    email: schema.string({}, [rules.email()]),
+    password: schema.string({}, [rules.confirmed('confirm-password')]),
+  })
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
@@ -36,5 +39,9 @@ export default class UserValidator {
    * }
    *
    */
-  public messages = {}
+  public messages = {
+    'required': 'O campo {{ field }} é obrigatório.',
+    'email.email': 'O e-mail é inválido!',
+    'confirm-password.confirmed': 'As senhas não coincidem!',
+  }
 }
