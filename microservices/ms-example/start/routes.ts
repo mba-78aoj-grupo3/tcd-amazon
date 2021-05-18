@@ -19,9 +19,6 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-
-// Circuit Breaker
-import CircuitBreaker from 'App/circuit-breaker/CircuitBreaker'
 import CircuitBreakerOpossum from 'opossum'
 import axios, { AxiosRequestConfig } from 'axios'
 
@@ -33,22 +30,15 @@ Route.get('/login', async () => {
   return { hello: 'world' }
 })
 
-Route.resource('users', 'UsersController') //.middleware({ '*': 'auth:api' })
+Route.group(() => {
+  Route.resource('users', 'UsersController')
+})
+  .middleware('auth:auth,api')
+  .prefix('api')
 
 //
-// *************************
-// * Ciruito codado, na pasta APP
-const params: AxiosRequestConfig = {
-  method: 'get',
-  url: 'http://localhost:3333/test',
-}
-
-const circuitBreaker = new CircuitBreaker(params)
-// *************************
-
+// ************************* TESTES ****************************
 //
-// *************************
-// * Ciruito da lib
 const options = {
   timeout: 3000,
   errorThresholdPercentage: 50,
@@ -60,11 +50,8 @@ const circuitBreakerOpossum = new CircuitBreakerOpossum(axios, options)
 circuitBreakerOpossum.fallback(() =>
   console.log('Serviço indisponivel no momento', circuitBreakerOpossum.status.stats)
 )
-// *************************
 
 Route.get('/circuit', async () => {
-  // circuitBreaker.exec().then(console.log).catch(console.error)
-
   circuitBreakerOpossum
     .fire('http://localhost:3333/test')
     .then((result) => console.log(result.status))
