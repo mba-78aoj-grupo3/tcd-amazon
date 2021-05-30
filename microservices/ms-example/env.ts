@@ -17,6 +17,7 @@ import Env from '@ioc:Adonis/Core/Env'
 export default Env.rules({
   HOST: Env.schema.string({ format: 'host' }),
   PORT: Env.schema.number(),
+  APP_URI: Env.schema.string(),
   APP_KEY: Env.schema.string(),
   APP_NAME: Env.schema.string(),
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
@@ -27,4 +28,9 @@ export default Env.rules({
   PG_USER: Env.schema.string(),
   PG_PASSWORD: Env.schema.string.optional(),
   PG_DB_NAME: Env.schema.string(),
+
+  KAFKA_SERVER: Env.schema.string(),
+
+  CONSUL_SERVER: Env.schema.string(),
+  CONSUL_PORT: Env.schema.string(),
 })

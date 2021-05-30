@@ -6,6 +6,7 @@
  */
 
 import User from 'App/Models/User'
+import { ModelObject } from '@ioc:Adonis/Lucid/Model'
 
 declare module '@ioc:Adonis/Core/Event' {
   /*

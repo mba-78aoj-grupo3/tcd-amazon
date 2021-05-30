@@ -5,12 +5,13 @@
   "scripts": {
     "build": "node ace build --production",
     "start": "node server.js",
-    "dev": "node ace serve --watch",
+    "serve": "node ace serve --watch",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.2.0",
+    "@types/consul": "^0.23.34",
     "@types/opossum": "^4.1.1",
     "adonis-preset-ts": "^2.1.0",
     "eslint": "^7.26.0",

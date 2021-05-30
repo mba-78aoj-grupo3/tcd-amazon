@@ -22,6 +22,10 @@ import Route from '@ioc:Adonis/Core/Route'
 import CircuitBreakerOpossum from 'opossum'
 import axios, { AxiosRequestConfig } from 'axios'
 
+Route.get('/health', async () => {
+  return true
+})
+
 Route.get('/', async () => {
   return { hello: 'world' }
 })
@@ -33,7 +37,7 @@ Route.get('/login', async () => {
 Route.group(() => {
   Route.resource('users', 'UsersController')
 })
-  .middleware('auth:auth,api')
+  // .middleware('auth:api')
   .prefix('api')
 
 //
@@ -60,7 +64,7 @@ Route.get('/circuit', async () => {
 
 Route.get('/test', async (data) => {
   console.log('/test')
-  if (Math.random() > 0.2) {
+  if (Math.random() > 0.8) {
     console.log('####################### success ###########################')
     data.response.status(200).send('Success!')
   } else {

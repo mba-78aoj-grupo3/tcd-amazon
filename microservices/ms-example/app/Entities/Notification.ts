@@ -6,11 +6,13 @@ export default class Notification {
    *
    *
    * @static
+   * @param {string} topic
    * @memberof Notification
    */
-  public static consumeEvents() {
+  public static consumeEvents(topic: string) {
+    console.log(Env.get('KAFKA_SERVER'))
     const client = new KafkaClient(Env.get('KAFKA_SERVER'))
-    const consumer = new Consumer(client, [{ topic: 'exampleTopic' }], { autoCommit: false })
+    const consumer = new Consumer(client, [{ topic }], { autoCommit: false })
 
     consumer.on('message', function (msg) {
       console.log('inside consumer')
@@ -35,6 +37,7 @@ export default class Notification {
    * @memberof Notification
    */
   public static produceEvent(topic: string, messages: any) {
+    console.log(Env.get('KAFKA_SERVER'))
     const client = new KafkaClient(Env.get('KAFKA_SERVER'))
     const producer = new Producer(client)
 

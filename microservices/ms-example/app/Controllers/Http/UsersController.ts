@@ -17,9 +17,7 @@ export default class UsersController {
    * @memberof UsersController
    */
   public async index(ctx: HttpContextContract): Promise<User[]> {
-    const user = await User.all()
-
-    return user
+    return await UserService.index()
   }
 
   /**
