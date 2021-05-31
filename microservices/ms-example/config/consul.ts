@@ -1,5 +1,5 @@
 import Env from '@ioc:Adonis/Core/Env'
-// import Logger from '@ioc:Adonis/Core/Logger'
+import IConsulConfig from 'Contracts/consul'
 import Consul, { Consul as IConsul } from 'consul'
 
 /**
@@ -8,7 +8,7 @@ import Consul, { Consul as IConsul } from 'consul'
  * @export
  * @class ConsulConfig
  */
-export default class ConsulConfig {
+export default class ConsulConfig implements IConsulConfig {
   /**
    *
    *

@@ -1,17 +1,5 @@
 {
   "commands": {
-    "start:consumer": {
-      "settings": {
-        "loadApp": true,
-        "stayAlive": false
-      },
-      "commandPath": "./commands/StartConsumer",
-      "commandName": "start:consumer",
-      "description": "",
-      "args": [],
-      "aliases": [],
-      "flags": []
-    },
     "dump:rcfile": {
       "settings": {},
       "commandPath": "@adonisjs/core/build/commands/DumpRc",

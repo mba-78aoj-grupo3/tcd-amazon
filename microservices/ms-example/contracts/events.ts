@@ -6,7 +6,7 @@
  */
 
 import User from 'App/Models/User'
-import { ModelObject } from '@ioc:Adonis/Lucid/Model'
+import Order from 'App/Models/Order'
 
 declare module '@ioc:Adonis/Core/Event' {
   /*
@@ -30,5 +30,6 @@ declare module '@ioc:Adonis/Core/Event' {
   */
   interface EventsList {
     'new:user': User
+    'new-order-created': Order
   }
 }

@@ -26,14 +26,6 @@ Route.get('/health', async () => {
   return true
 })
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
-
-Route.get('/login', async () => {
-  return { hello: 'world' }
-})
-
 Route.group(() => {
   Route.resource('users', 'UsersController')
 })
