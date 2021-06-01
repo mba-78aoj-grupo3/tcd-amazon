@@ -6,7 +6,7 @@ export default class UserModel extends BaseModel {
   constructor() {
     super()
 
-    Notification.produceEvent('productTopic', 'New user created')
+    Notification.produceEvent('exampleTopic', 'New user created')
   }
 
   @column({ isPrimary: true })
