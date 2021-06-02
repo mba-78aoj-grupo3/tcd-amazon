@@ -1,5 +1,5 @@
 CREATE USER msproduct WITH PASSWORD '123456' CREATEDB;
-CREATE DATABASE db_ms_product
+CREATE DATABASE db_ms_products
     WITH 
     OWNER = msproduct
     ENCODING = 'UTF8'
