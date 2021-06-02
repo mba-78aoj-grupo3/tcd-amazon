@@ -16,7 +16,7 @@ export default class AppProvider {
 
   public async ready() {
     // App is ready
-    // Notification.consumeEvents('user-created')
+    Notification.consumeEvents('user-created')
   }
 
   public async shutdown() {

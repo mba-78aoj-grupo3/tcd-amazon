@@ -30,8 +30,12 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+Route.get('/login', async () => {
+  return { hello: 'world' }
+})
+
 Route.group(() => {
-  Route.resource('products', 'ProductController')
+  Route.resource('users', 'UsersController')
 })
   // .middleware('auth:api')
   .prefix('api')

@@ -29,7 +29,6 @@ export default class ConsulConfig {
       promisify: true,
     })
 
-    console.log(this.consul)
     this.registry()
   }
 
@@ -53,10 +52,8 @@ export default class ConsulConfig {
       (err, res) => {
         if (err) {
           // Logger.error('Erro ao registrar o Consul.')
-          console.log('Consul error: ', err)
           // throw err
         } else {
-          console.log(res)
           // Logger.info('Consul iniciado com sucesso!', res)
         }
       }

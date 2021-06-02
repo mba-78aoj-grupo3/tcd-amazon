@@ -17,9 +17,9 @@ export default class ProductService {
    * @memberof ProductService
    */
   public static async index(): Promise<Product[]> {
-    const products = await Product.all()
+    const product = await Product.all()
 
-    return products
+    return product
   }
 
   /**
@@ -33,6 +33,10 @@ export default class ProductService {
   public static async show(id: number): Promise<Product | null> {
     const product = await Product.find(id)
 
+    // await product?.load('assigner')
+    // await product?.load('customer')
+    await product?.load('productCategory')
+
     return product
   }
 
@@ -44,10 +48,12 @@ export default class ProductService {
    * @memberof ProductService
    */
   public static async store(body: Record<string, string>): Promise<Product> {
-    const user = await Product.create(body)
+    delete body['Product']
 
-    Event.emit('new:product', user)
+    const product = await Product.create(body)
 
-    return user
+    Event.emit('new:product', product)
+
+    return product
   }
 }
