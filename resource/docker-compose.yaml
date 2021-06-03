@@ -118,7 +118,7 @@ services:
 #Microservices
 
   ms-profile:
-    image: ms-profile-v21
+    image: ms-profile-v4
     container_name: ms-profile
     restart: always
     ports:
@@ -129,9 +129,8 @@ services:
       - consul-client
       - consul-server1
       - consul-server2
-      - consul-server3 
-    command: "node ace migration:run"
-    command: "npm run serve"
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
     networks:
       - network-docker
 
