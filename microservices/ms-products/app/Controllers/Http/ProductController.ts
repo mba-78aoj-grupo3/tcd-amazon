@@ -17,7 +17,7 @@ export default class ProductController {
    * @memberof ProductsController
    */
   public async index(ctx: HttpContextContract): Promise<Product[]> {
-    return await ProductService.index()
+    return await ProductService.index(ctx.request.qs())
   }
 
   /**
@@ -26,7 +26,7 @@ export default class ProductController {
    * @return {*}  {Promise<Product[]>}
    * @memberof ProductsController
    */
-   public async show(ctx: HttpContextContract): Promise<Product | null> {
+  public async show(ctx: HttpContextContract): Promise<Product | null> {
     const id = ctx.params?.id as number
 
     return await ProductService.show(id)

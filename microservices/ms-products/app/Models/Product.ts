@@ -19,8 +19,8 @@ export default class Product extends BaseModel {
   @column()
   public description: string
 
-  @column()
-  public productCategoryId: string
+  @column({ columnName: 'product_category_id' })
+  public productCategoryId: number
 
   @column()
   public price: number

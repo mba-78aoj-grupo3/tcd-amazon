@@ -23,7 +23,7 @@ import CircuitBreakerOpossum from 'opossum'
 import axios, { AxiosRequestConfig } from 'axios'
 
 Route.get('/health', async () => {
-  return true
+  //
 })
 
 Route.group(() => {

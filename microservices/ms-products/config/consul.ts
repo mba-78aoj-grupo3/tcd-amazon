@@ -29,7 +29,6 @@ export default class ConsulConfig {
       promisify: true,
     })
 
-    console.log(this.consul)
     this.registry()
   }
 
@@ -42,11 +41,11 @@ export default class ConsulConfig {
   private registry(): void {
     this.consul.agent.service.register(
       {
-        name: Env.get('APP_NAME'),
+        name: Env.get('NAME'),
         address: Env.get('HOST'),
         port: Env.get('PORT'),
         check: {
-          http: Env.get('APP_URI'),
+          http: `${Env.get('APP_URI')}/health`,
           interval: '10s',
         },
       },

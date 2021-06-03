@@ -1,6 +1,5 @@
 import Product from 'App/Models/Product'
 import Event from '@ioc:Adonis/Core/Event'
-import { Exception } from '@poppinss/utils'
 
 /**
  *
@@ -16,8 +15,15 @@ export default class ProductService {
    * @return {*}  {Promise<Product[]>}
    * @memberof ProductService
    */
-  public static async index(): Promise<Product[]> {
-    const products = await Product.all()
+  public static async index(qs: Record<string, any>): Promise<Product[]> {
+    const products = await Product.query()
+      .where('name', 'ilike', '%' + qs.search + '%')
+      .orWhere('description', 'ilike', '%' + qs.search + '%')
+    // .preload('productCategory', (query) => {
+    //   query.where('title', 'ilike', qs.title)
+    // })
+
+    // products.map(async (product) => await product.load('productCategory'))
 
     return products
   }
