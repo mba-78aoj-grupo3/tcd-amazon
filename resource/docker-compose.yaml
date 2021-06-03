@@ -1,0 +1,140 @@
+version: '3.7'
+
+services:
+# Postgre
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "grupo3"
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./postgres/db_helpdesk_postgres_init.sql:/docker-entrypoint-initdb.d/db_helpdesk_postgres_init.sql
+      - ./postgres/db_orders_postgres_init.sql:/docker-entrypoint-initdb.d/db_orders_postgres_init.sql
+      - ./postgres/db_products_postgres_init.sql:/docker-entrypoint-initdb.d/db_products_postgres_init.sql
+      - ./postgres/db_profiles_postgres_init.sql:/docker-entrypoint-initdb.d/db_profiles_postgres_init.sql      
+    networks:
+      - network-docker
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "grupo3@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "grupo3"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - network-docker
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    networks: 
+      - network-docker
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+#Kafka
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    networks: 
+      - network-docker
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    networks: 
+      - network-docker
+    depends_on:
+      - kafka
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+#Consul
+  consul-server1:
+    image: consul:1.9.3
+    container_name: consul-server1
+    restart: always
+    volumes:
+     - ./consul/server1.json:/consul/config/server1.json:rw
+     - ./consul/certs/:/consul/config/certs/:rw
+    networks:
+      - network-docker
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command: "agent -bootstrap-expect=3"
+
+  consul-server2:
+    image: consul:1.9.3
+    container_name: consul-server2
+    restart: always
+    volumes:
+     - ./consul/server2.json:/consul/config/server2.json:rw
+     - ./consul/certs/:/consul/config/certs/:rw
+    networks:
+      - network-docker
+    command: "agent -bootstrap-expect=3"
+
+  consul-server3:
+    image: consul:1.9.3
+    container_name: consul-server3
+    restart: always
+    volumes:
+     - ./consul/server3.json:/consul/config/server3.json:rw
+     - ./consul/certs/:/consul/config/certs/:rw
+    networks:
+      - network-docker
+    command: "agent -bootstrap-expect=3"
+
+  consul-client:
+    image: consul:latest
+    container_name: consul-client
+    restart: always
+    volumes:
+     - ./consul/client.json:/consul/config/client.json:rw
+     - ./consul/certs/:/consul/config/certs/:rw
+    networks:
+      - network-docker
+    command: "agent"
+
+#Microservices
+
+  ms-profile:
+    image: ms-profile-v21
+    container_name: ms-profile
+    restart: always
+    ports:
+      - 8033:8033
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3 
+    command: "node ace migration:run"
+    command: "npm run serve"
+    networks:
+      - network-docker
+
+networks:
+  network-docker:
+    driver: bridge

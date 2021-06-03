@@ -51,7 +51,7 @@ circuitBreakerOpossum.fallback(() =>
 
 Route.get('/circuit', async () => {
   circuitBreakerOpossum
-    .fire('http://localhost:3333/test')
+    .fire('http://localhost:8033/test')
     .then((result) => console.log(result.status))
     .catch((result) => console.log(result.status))
 })
