@@ -1,5 +1,5 @@
 import Env from '@ioc:Adonis/Core/Env'
-import IConsulConfig from 'Contracts/consul'
+// import Logger from '@ioc:Adonis/Core/Logger'
 import Consul, { Consul as IConsul } from 'consul'
 
 /**
@@ -8,7 +8,7 @@ import Consul, { Consul as IConsul } from 'consul'
  * @export
  * @class ConsulConfig
  */
-export default class ConsulConfig implements IConsulConfig {
+export default class ConsulConfig {
   /**
    *
    *
@@ -39,33 +39,24 @@ export default class ConsulConfig implements IConsulConfig {
    * @memberof ConsulConfig
    */
   private registry(): void {
-    console.log({
-      name: Env.get('NAME'),
-      address: Env.get('HOST'),
-      port: Env.get('PORT'),
-      check: {
-        http: Env.get('APP_URI') + '/health',
-        interval: '10s',
-      },
-    })
     this.consul.agent.service.register(
       {
         name: Env.get('NAME'),
         address: Env.get('HOST'),
         port: Env.get('PORT'),
         check: {
-          http: Env.get('APP_URI') + '/health',
+          http: `${Env.get('APP_URI')}/health`,
           interval: '10s',
         },
       },
       (err, res) => {
         if (err) {
           // Logger.error('Erro ao registrar o Consul.')
+          console.log('Consul error: ', err)
           // throw err
-          console.log('erro: ' + err)
         } else {
+          console.log(res)
           // Logger.info('Consul iniciado com sucesso!', res)
-          console.log('passou: ' + res)
         }
       }
     )

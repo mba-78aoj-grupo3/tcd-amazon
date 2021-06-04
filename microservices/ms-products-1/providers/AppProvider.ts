@@ -1,6 +1,6 @@
-import Kafka from 'Config/kafka'
-import ConsulConfig from 'Config/consul'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import Notification from 'App/Entities/Notification'
+import ConsulConfig from 'Config/consul'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
@@ -16,7 +16,7 @@ export default class AppProvider {
 
   public async ready() {
     // App is ready
-    // Kafka.consume('user-created', (e) => console.log(e))
+    Notification.consumeEvents('user-created')
   }
 
   public async shutdown() {

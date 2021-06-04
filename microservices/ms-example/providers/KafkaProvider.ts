@@ -36,7 +36,7 @@ export default class KafkaProvider {
     // App is ready
     const Event = (await import('@ioc:Adonis/Core/Event')).default
 
-    Kafka.consume('order-created', (message) => Event.emit('new:order', message))
+    // Kafka.consume('order-created', (message) => Event.emit('new:order', message))
   }
 
   public async shutdown() {

@@ -23,11 +23,17 @@ import CircuitBreakerOpossum from 'opossum'
 import axios, { AxiosRequestConfig } from 'axios'
 
 Route.get('/health', async () => {
-  //
+  return true
+})
+
+Route.get('/', async () => {
+  return { hello: 'world' }
 })
 
 Route.group(() => {
-  Route.resource('tickets', 'TicketController')
+  Route.get('products/search', 'ProductController.search')
+  Route.resource('products', 'ProductController')
+  Route.resource('products-categories', 'ProductCategoryController')
 })
   // .middleware('auth:api')
   .prefix('api')
