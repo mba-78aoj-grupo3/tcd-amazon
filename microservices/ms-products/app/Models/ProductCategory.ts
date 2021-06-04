@@ -55,6 +55,12 @@ export default class ProductCategory extends BaseModel {
   @column()
   public description: string
 
-  // @hasMany(() => Product)
-  // public product: HasMany<typeof Product>
+  /**
+   *
+   *
+   * @type {HasMany<typeof Product>}
+   * @memberof ProductCategory
+   */
+  @hasMany(() => Product)
+  public product: HasMany<typeof Product>
 }

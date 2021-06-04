@@ -7,24 +7,34 @@ import ProductService from 'App/Services/ProductService'
  *
  *
  * @export
- * @class ProductsController
+ * @class ProductController
  */
 export default class ProductController {
   /**
    *
    *
    * @return {*}  {Promise<Product[]>}
-   * @memberof ProductsController
+   * @memberof ProductController
    */
-  public async index(ctx: HttpContextContract): Promise<Product[]> {
-    return await ProductService.index(ctx.request.qs())
+  public async index(): Promise<Product[]> {
+    return await ProductService.index()
   }
 
   /**
    *
    *
    * @return {*}  {Promise<Product[]>}
-   * @memberof ProductsController
+   * @memberof ProductController
+   */
+  public async search(ctx: HttpContextContract): Promise<Product[]> {
+    return await ProductService.search(ctx.request.qs())
+  }
+
+  /**
+   *
+   *
+   * @return {*}  {Promise<Product[]>}
+   * @memberof ProductController
    */
   public async show(ctx: HttpContextContract): Promise<Product | null> {
     const id = ctx.params?.id as number
@@ -37,7 +47,7 @@ export default class ProductController {
    *
    * @param {HttpContextContract} ctx
    * @return {*}  {Promise<Product>}
-   * @memberof ProductsController
+   * @memberof ProductController
    */
   public async store(ctx: HttpContextContract): Promise<Product> {
     await ctx.request.validate(ProductCreateValidator)

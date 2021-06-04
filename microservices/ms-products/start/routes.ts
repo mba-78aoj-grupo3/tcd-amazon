@@ -31,7 +31,9 @@ Route.get('/', async () => {
 })
 
 Route.group(() => {
+  Route.get('products/search', 'ProductController.search')
   Route.resource('products', 'ProductController')
+  Route.resource('products-categories', 'ProductCategoryController')
 })
   // .middleware('auth:api')
   .prefix('api')
