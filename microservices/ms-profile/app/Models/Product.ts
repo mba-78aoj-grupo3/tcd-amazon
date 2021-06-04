@@ -1,13 +1,51 @@
-import { DateTime } from 'luxon'
-import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import BaseApiModel from 'Config/model-api'
 
-export default class Product extends BaseModel {
-  @column({ isPrimary: true })
-  public id: number
+/**
+ *
+ *
+ * @export
+ * @class Product
+ * @extends {BaseApiModel}
+ */
+export default class Product extends BaseApiModel {
+  /**
+   *
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  public baseUrl: string = 'http://192.168.0.107:3334/api'
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  /**
+   *
+   *
+   * @readonly
+   * @type {string}
+   * @memberof Product
+   */
+  public get resourceName(): string {
+    return 'products'
+  }
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  /**
+   *
+   *
+   * @readonly
+   * @type {string[]}
+   * @memberof Product
+   */
+  public get fields(): string[] {
+    return ['name', 'description', 'product_category_id', 'price', 'json_data']
+  }
+
+  /**
+   *
+   *
+   * @readonly
+   * @type {string[]}
+   * @memberof Product
+   */
+  public get relationshipNames(): string[] {
+    return ['product_category']
+  }
 }

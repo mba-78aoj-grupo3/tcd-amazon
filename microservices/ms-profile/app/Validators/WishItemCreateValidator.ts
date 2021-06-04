@@ -25,7 +25,6 @@ export default class WishItemCreateValidator {
    */
   public schema = schema.create({
     product_id: schema.number(),
-    user_id: schema.number(),
   })
 
   /**
