@@ -191,7 +191,7 @@ services:
     networks:
       - network-docker      
 
-  ms-order:
+  ms-shipping:
     image: ms-shipping:0.0.1
     container_name: ms-shipping
     hostname: ms-shipping
