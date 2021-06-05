@@ -24,7 +24,6 @@ ENV CACHE_VIEWS=false
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY package*.json ./
 COPY . /usr/src/app
 RUN npm install
 EXPOSE 8033

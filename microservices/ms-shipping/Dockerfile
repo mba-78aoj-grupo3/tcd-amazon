@@ -1,8 +1,8 @@
 FROM node:14.17.0
 
-ENV PORT=8034
+ENV PORT=8037
 ENV HOST=ms-shipping
-ENV APP_URI=http://ms-shipping:8034
+ENV APP_URI=http://ms-shipping:8037
 ENV APP_NAME=ms-shipping
 ENV NODE_ENV=development
 ENV APP_KEY=TgHpLj48KWIhlzJbMBrPZmcY5mt3LTap
@@ -24,7 +24,6 @@ ENV CACHE_VIEWS=false
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY package*.json ./
 COPY . /usr/src/app
 RUN npm install
-EXPOSE 8034
+EXPOSE 8037
