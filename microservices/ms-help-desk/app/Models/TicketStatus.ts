@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { column, BaseModel, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { column, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 
 import Ticket from './Ticket'
 
@@ -58,9 +58,9 @@ export default class TicketStatus extends BaseModel {
   /**
    *
    *
-   * @type {BelongsTo<typeof Ticket>}
+   * @type {HasMany<typeof Ticket>}
    * @memberof TicketStatus
    */
-  @belongsTo(() => Ticket)
-  public ticket: BelongsTo<typeof Ticket>
+  @hasMany(() => Ticket)
+  public ticket: HasMany<typeof Ticket>
 }

@@ -17,7 +17,7 @@ export default class TicketService {
    * @memberof TicketService
    */
   public static async index(): Promise<Ticket[]> {
-    const ticket = await Ticket.all()
+    const ticket = await Ticket.query().preload('ticketCategory').preload('ticketStatus')
 
     return ticket
   }

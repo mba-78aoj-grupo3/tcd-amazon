@@ -1,4 +1,3 @@
-import Kafka from 'Config/kafka'
 import ConsulConfig from 'Config/consul'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
@@ -16,7 +15,6 @@ export default class AppProvider {
 
   public async ready() {
     // App is ready
-    //Kafka.consume('user-created', (e) => console.log(e))
   }
 
   public async shutdown() {

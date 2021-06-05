@@ -12,9 +12,9 @@ export default {
     definition: {
       openapi: '3.0.0',
       info: {
-        title: 'Application with swagger docs',
+        title: 'Microserviço de Help Desk',
         version: '1.0.0',
-        description: 'My application with swagger docs',
+        description: 'Reponsável por criar tickets de suporte e lista-los',
       },
     },
 
