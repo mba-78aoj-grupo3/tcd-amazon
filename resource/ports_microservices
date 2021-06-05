@@ -1,0 +1,11 @@
+Microservices:
+ms-profile - 8033
+
+
+Plataform:
+Consul - 8085
+Postgres - 15432
+PgAdmin - 16543
+Kafka - 9092
+Kafdrop - 19000
+

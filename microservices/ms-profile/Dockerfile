@@ -1,9 +1,9 @@
 FROM node:14.17.0
 
 ENV PORT=8033
-ENV HOST=0.0.0.0
-ENV APP_URI=http://0.0.0.0:8033
-ENV APP_NAME=profile
+ENV HOST=ms-profiles
+ENV APP_URI=http://ms-profiles:8033
+ENV APP_NAME=ms-profiles
 ENV NODE_ENV=development
 ENV APP_KEY=TgHpLj48KWIhlzJbMBrPZmcY5mt3LTap
 

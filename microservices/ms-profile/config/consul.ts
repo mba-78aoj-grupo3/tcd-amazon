@@ -28,7 +28,7 @@ export default class ConsulConfig implements IConsulConfig {
       port: Env.get('CONSUL_PORT'),
       promisify: true,
     })
-
+    console.log('ConsulServer',Env.get('CONSUL_SERVER'))
     this.registry()
   }
 
@@ -45,12 +45,13 @@ export default class ConsulConfig implements IConsulConfig {
         address: Env.get('HOST'),
         port: Env.get('PORT'),
         check: {
-          http: Env.get('APP_URI'),
+          http: Env.get('APP_URI') + '/health',
           interval: '10s',
         },
       },
       (err, res) => {
         if (err) {
+          console.log('Consul',err)
           // Logger.error('Erro ao registrar o Consul.')
           // throw err
         } else {
