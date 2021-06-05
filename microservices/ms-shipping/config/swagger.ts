@@ -12,9 +12,10 @@ export default {
     definition: {
       openapi: '3.0.0',
       info: {
-        title: 'Microserviço de Help Desk',
+        title: 'Microserviço de Shipping',
         version: '1.0.0',
-        description: 'Reponsável por criar tickets de suporte e lista-los',
+        description:
+          'Reponsável por realizar o calculo de frete e receber as alterações da transportadora',
       },
     },
 

@@ -121,6 +121,6 @@ export default class ShippingService {
       [receiverLatLon.lat, receiverLatLon.lng]
     )
 
-    return `R$: ${(distance * 3).toFixed(2)}`
+    return { shipping_value: `R$: ${(distance * 3).toFixed(2)}` }
   }
 }
