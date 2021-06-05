@@ -30,6 +30,8 @@ services:
     networks:
       - network-docker
 
+#Kafka
+      
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     networks: 
@@ -38,7 +40,6 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
-#Kafka
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka
@@ -118,8 +119,9 @@ services:
 #Microservices
 
   ms-profile:
-    image: ms-profile-v4
-    container_name: ms-profile
+    image: ms-profile-v12
+    container_name: ms-profiles
+    hostname: ms-profiles
     restart: always
     ports:
       - 8033:8033
