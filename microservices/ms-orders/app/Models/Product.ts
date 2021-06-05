@@ -14,7 +14,7 @@ export default class Product extends BaseApiModel {
    * @type {string}
    * @memberof Product
    */
-  public baseUrl: string = 'http://192.168.0.107:3334/api'
+  public baseUrl: string = 'http://192.168.0.108:3334/api'
 
   /**
    *

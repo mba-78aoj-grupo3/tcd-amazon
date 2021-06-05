@@ -1,5 +1,5 @@
+import axios from 'axios'
 import CircuitBreakerOpossum from 'opossum'
-import axios, { AxiosRequestConfig } from 'axios'
 
 const options = {
   timeout: 3000,
@@ -9,8 +9,9 @@ const options = {
 
 const circuitBreakerOpossum = new CircuitBreakerOpossum(axios, options)
 
-circuitBreakerOpossum.fallback(() =>
+circuitBreakerOpossum.fallback(() => {
   console.log('Serviço indisponivel no momento', circuitBreakerOpossum.status.stats)
-)
+  return {}
+})
 
 export { circuitBreakerOpossum }
