@@ -120,7 +120,7 @@ services:
 #Microservices
 
   ms-profiles:
-    image: ms-profile-v12
+    image: ms-profile:0.0.1
     container_name: ms-profiles
     hostname: ms-profiles
     restart: always
@@ -138,7 +138,7 @@ services:
       - network-docker
 
   ms-help-desk:
-    image: ms-help-desk-v1
+    image: ms-help-desk:0.0.1
     container_name: ms-help-desk
     hostname: ms-help-desk
     restart: always
@@ -156,7 +156,7 @@ services:
       - network-docker      
 
   ms-products:
-    image: ms-products-v5
+    image: ms-products:0.0.1
     container_name: ms-products
     hostname: ms-products
     restart: always
@@ -174,7 +174,7 @@ services:
       - network-docker 
 
   ms-order:
-    image: ms-order
+    image: ms-order:0.0.1
     container_name: ms-order
     hostname: ms-order
     restart: always
@@ -190,6 +190,25 @@ services:
     command: sh -c "/usr/src/app/script.sh"
     networks:
       - network-docker      
+
+  ms-order:
+    image: ms-shipping:0.0.1
+    container_name: ms-shipping
+    hostname: ms-shipping
+    restart: always
+    ports:
+      - 8037:8037
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
+    networks:
+      - network-docker      
+
 
 networks:
   network-docker:
