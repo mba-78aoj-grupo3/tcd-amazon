@@ -15,7 +15,9 @@ export default class OrderController {
    * @return {*}  {Promise<Order[]>}
    * @memberof OrderController
    */
-  public async history(ctx: HttpContextContract): Promise<Order[]> {
-    return await Orderervice.history()
+  public async history(ctx: HttpContextContract): Promise<Order | null> {
+    const id = ctx.params.id as number
+
+    return await Orderervice.history(id)
   }
 }

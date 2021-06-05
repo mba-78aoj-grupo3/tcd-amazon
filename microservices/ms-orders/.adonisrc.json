@@ -32,8 +32,7 @@
     "@adonisjs/lucid",
     "@adonisjs/auth",
     "@adonisjs/bouncer",
-    "adonis5-swagger",
-    "./providers/KafkaProvider"
+    "adonis5-swagger"
   ],
   "aceProviders": [
     "@adonisjs/repl"

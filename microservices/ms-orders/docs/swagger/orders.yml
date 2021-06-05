@@ -1,0 +1,131 @@
+/api/orders/{id}/status:
+  get:
+    tags:
+      - Pedidos - Rotas Principais
+    security: []
+    description: Verificar status do pedido
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID do produto a ser exibido.
+        schema:
+          type : number
+          format: int64
+          minimum: 1
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: A list of users.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                  example: 1
+                created_at:
+                  type: string
+                  example: 2021-05-31T18:15:46.150-03:00
+                updated_at:
+                  type: string
+                  example: 2021-05-31T18:15:50.816-03:00
+                customer_id:
+                  type: number
+                  example: 1
+                order_status_id:
+                  type: number
+                  example: 1
+                amount_value:
+                  type: number
+                  example: 25000
+                orderItems:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 2
+                      created_at:
+                        type: string
+                        example: 2021-05-31T18:21:18.824-03:00
+                      updated_at:
+                        type: string
+                        example: 2021-05-31T18:21:20.722-03:00
+                      order_id:
+                        type: number
+                        example: 1
+                      product_id:
+                        type: number
+                        example: 2
+                      quantity:
+                        type: number
+                        example: 1
+                      amount_value:
+                        type: number
+                        example: 15000
+                      product:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                            example: 2
+                          created_at:
+                            type: string
+                            example: 2021-06-02T21:17:28.667-03:00
+                          updated_at:
+                            type: string
+                            example: 2021-06-02T21:17:30.564-03:00
+                          name:
+                            type: string
+                            example: Revista
+                          description:
+                            type: string
+                            example: revista de fofoca
+                          product_category_id:
+                            type: number
+                            example: 1
+                          price:
+                            type: number
+                            example: 3000
+                          json_data:
+                            type: string
+                            example: {}
+                orderEvents:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      created_at:
+                        type: string
+                        example: 2021-06-04T18:31:49.017-03:00
+                      updated_at:
+                        type: string
+                        example: 2021-06-04T18:31:50.860-03:00
+                      order_id:
+                        type: number
+                        example: 1
+                      order_event_type_id:
+                        type: number
+                        example: 1
+                      orderEventType:
+                        type: object
+                        properties: 
+                          id:
+                            type: number
+                            example: 1
+                          created_at:
+                            type: string
+                            example: 2021-06-04T18:30:53.700-03:00
+                          updated_at:
+                            type: string
+                            example: 2021-06-04T18:30:55.440-03:00
+                          description:
+                            type: string
+                            example: Em analise
