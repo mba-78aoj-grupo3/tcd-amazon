@@ -9,5 +9,4 @@
 */
 import Event from '@ioc:Adonis/Core/Event'
 
-Event.on('new:user', 'UserListener.onNewUser')
 Event.on('new:order', 'OrderListener.onNewOrderCreated')

@@ -3,12 +3,12 @@
     tags:
       - Pedidos - Rotas Principais
     security: []
-    description: Verificar status do pedido
+    description: Verificar status/acompanhamento do pedido
     parameters:
       - name: id
         in: path
         required: true
-        description: ID do produto a ser exibido.
+        description: Id do pedido a ser exibido.
         schema:
           type : number
           format: int64
@@ -17,7 +17,7 @@
       - application/json
     responses:
       '200':
-        description: A list of users.
+        description:
         content:
           application/json:
             schema:
