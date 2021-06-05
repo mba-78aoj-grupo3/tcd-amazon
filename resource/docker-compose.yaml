@@ -73,8 +73,8 @@ services:
     container_name: consul-server1
     restart: always
     volumes:
-     - ./consul/server1.json:/consul/config/server1.json:rw
-     - ./consul/certs/:/consul/config/certs/:rw
+     - ./consul/server1.json:/consul/config/server1.json:ro
+     - ./consul/certs/:/consul/config/certs/:ro
     networks:
       - network-docker
     ports:
@@ -88,8 +88,8 @@ services:
     container_name: consul-server2
     restart: always
     volumes:
-     - ./consul/server2.json:/consul/config/server2.json:rw
-     - ./consul/certs/:/consul/config/certs/:rw
+     - ./consul/server2.json:/consul/config/server2.json:ro
+     - ./consul/certs/:/consul/config/certs/:ro
     networks:
       - network-docker
     command: "agent -bootstrap-expect=3"
@@ -99,8 +99,8 @@ services:
     container_name: consul-server3
     restart: always
     volumes:
-     - ./consul/server3.json:/consul/config/server3.json:rw
-     - ./consul/certs/:/consul/config/certs/:rw
+     - ./consul/server3.json:/consul/config/server3.json:ro
+     - ./consul/certs/:/consul/config/certs/:ro
     networks:
       - network-docker
     command: "agent -bootstrap-expect=3"
@@ -110,8 +110,8 @@ services:
     container_name: consul-client
     restart: always
     volumes:
-     - ./consul/client.json:/consul/config/client.json:rw
-     - ./consul/certs/:/consul/config/certs/:rw
+     - ./consul/client.json:/consul/config/client.json:ro
+     - ./consul/certs/:/consul/config/certs/:ro
     networks:
       - network-docker
     command: "agent"
@@ -135,6 +135,24 @@ services:
     command: sh -c "/usr/src/app/script.sh"
     networks:
       - network-docker
+
+  ms-help-desk:
+    image: ms-help-desk-v20
+    container_name: ms-help-desk
+    hostname: ms-help-desk
+    restart: always
+    ports:
+      - 8034:8034
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
+    networks:
+      - network-docker      
 
 networks:
   network-docker:

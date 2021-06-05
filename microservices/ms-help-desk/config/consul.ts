@@ -45,7 +45,7 @@ export default class ConsulConfig implements IConsulConfig {
         address: Env.get('HOST'),
         port: Env.get('PORT'),
         check: {
-          http: Env.get('APP_URI'),
+          http: Env.get('APP_URI') + '/health',
           interval: '10s',
         },
       },

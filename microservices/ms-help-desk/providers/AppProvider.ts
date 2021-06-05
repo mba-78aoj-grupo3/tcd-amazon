@@ -16,7 +16,7 @@ export default class AppProvider {
 
   public async ready() {
     // App is ready
-    Kafka.consume('user-created', (e) => console.log(e))
+    //Kafka.consume('user-created', (e) => console.log(e))
   }
 
   public async shutdown() {
