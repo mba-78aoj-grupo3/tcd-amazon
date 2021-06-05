@@ -124,6 +124,8 @@ export default class UserService {
 
     if (product.id === undefined) return 'Produto não encontrado.'
 
+    body.user_id = id
+
     return await WishItem.create(body)
   }
 }
