@@ -26,14 +26,11 @@ Route.get('/health', async () => {
   return true
 })
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
-
 Route.group(() => {
   Route.get('products/search', 'ProductController.search')
   Route.resource('products', 'ProductController')
   Route.resource('products-categories', 'ProductCategoryController')
+  Route.resource('products-genres', 'ProductGenreController')
 })
   // .middleware('auth:api')
   .prefix('api')

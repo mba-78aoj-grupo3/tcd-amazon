@@ -1,0 +1,77 @@
+/api/products-genres/{id}:
+  get:
+    tags:
+      - Produtos - Rotas principais
+    security: []
+    description: Listagem de produtos de um genero especifico
+    produces:
+      - application/json
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id do genero que dejesa exibir
+        schema:
+          type : number
+          format: int64
+          minimum: 1
+    responses:
+      '200':
+        description:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 2
+                        created_at:
+                          type: string
+                          example: 2021-06-05T00:52:34.553-03:00
+                        updated_at:
+                          type: string
+                          example: 2021-06-05T00:52:36.257-03:00
+                        description:
+                          type: string
+                          example: Romance
+                        product:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 4
+                            created_at:
+                              type: string
+                              example: 2021-06-05T00:34:34.861-03:00
+                            updated_at:
+                              type: string
+                              example: 2021-06-05T00:34:37.172-03:00
+                            name:
+                              type: string
+                              example: bca
+                            description:
+                              type: string
+                              example: bca
+                            product_category_id:
+                              type: number
+                              example: 1
+                            price:
+                              type: number
+                              example: 23
+                            views:
+                              type: number
+                              example: 1
+                            json_data:
+                              type: string
+                              example: null
+                            product_genre_id:
+                              type: number
+                              example: 2
+

@@ -28,7 +28,7 @@ export default class ProductService {
    * @return {*}  {Promise<Product[]>}
    * @memberof ProductService
    */
-  public static async search(qs: Record<string, any>): Promise<Product[]> {
+  public static async search(qs: Record<string, any>): Promise<Product[] | any> {
     const products = await Product.query()
       .where('name', 'ilike', '%' + qs.search + '%')
       .orWhere('description', 'ilike', '%' + qs.search + '%')
