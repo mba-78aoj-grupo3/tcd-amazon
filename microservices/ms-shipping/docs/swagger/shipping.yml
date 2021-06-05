@@ -1,0 +1,59 @@
+/api/shippings/{id}/change-status:
+  patch:
+    tags:
+      - Chamados - Rotas auxiliares
+    security: []
+    description: Alteração do status do envio
+    produces:
+      - application/json
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id do envio que deseja ser alterado
+        schema:
+          type : number
+          format: int64
+          minimum: 1
+    requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shipping_event_type_id:
+                    type: number
+                    example: 1
+    responses:
+          '200':
+            description: Lista de chamados
+            content:
+
+/api/shippings/calculate:
+  get:
+    tags:
+      - Chamados - Rotas Principais
+    security: []
+    description: Calculo do envio (Frete)
+    produces:
+      - application/json
+    parameters:
+      - name: origin_postcode
+        in: query
+        required: true
+        description: CEP da origem
+        schema:
+          type : string
+          minimum: 1
+      - name: receiver_postcode
+        in: query
+        required: true
+        description: CEP do destinatario
+        schema:
+          type : string
+          minimum: 1
+    responses:
+          '200':
+            description: Lista de chamados
+            content:

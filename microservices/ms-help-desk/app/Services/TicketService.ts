@@ -49,8 +49,6 @@ export default class TicketService {
    * @memberof TicketService
    */
   public static async store(body: Record<string, string>): Promise<Ticket> {
-    delete body['confirm-password']
-
     const ticket = await Ticket.create(body)
 
     Event.emit('new:ticket', ticket)
