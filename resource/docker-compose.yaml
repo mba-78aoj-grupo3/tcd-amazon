@@ -14,7 +14,8 @@ services:
       - ./postgres/db_helpdesk_postgres_init.sql:/docker-entrypoint-initdb.d/db_helpdesk_postgres_init.sql
       - ./postgres/db_orders_postgres_init.sql:/docker-entrypoint-initdb.d/db_orders_postgres_init.sql
       - ./postgres/db_products_postgres_init.sql:/docker-entrypoint-initdb.d/db_products_postgres_init.sql
-      - ./postgres/db_profiles_postgres_init.sql:/docker-entrypoint-initdb.d/db_profiles_postgres_init.sql      
+      - ./postgres/db_profiles_postgres_init.sql:/docker-entrypoint-initdb.d/db_profiles_postgres_init.sql
+      - ./postgres/db_shipping_postgres_init.sql:/docker-entrypoint-initdb.d/db_shipping_postgres_init.sql     
     networks:
       - network-docker
 
@@ -143,6 +144,42 @@ services:
     restart: always
     ports:
       - 8034:8034
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
+    networks:
+      - network-docker      
+
+  ms-products:
+    image: ms-products-v5
+    container_name: ms-products
+    hostname: ms-products
+    restart: always
+    ports:
+      - 8035:8035
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
+    networks:
+      - network-docker 
+
+  ms-order:
+    image: ms-order
+    container_name: ms-order
+    hostname: ms-order
+    restart: always
+    ports:
+      - 8036:8036
     depends_on:
       - postgres
       - kafka
