@@ -47,6 +47,10 @@ export default class ProductService {
   public static async show(id: number): Promise<Product | any> {
     const product = await Product.find(id)
 
+    if (product) {
+      Event.emit('view:product', product)
+    }
+
     return {
       data: {
         attributes: product,
@@ -57,15 +61,39 @@ export default class ProductService {
   /**
    *
    *
-   * @param {Record<string, string>} body
+   * @static
+   * @param {Record<string, any>} body
    * @return {*}  {Promise<Product>}
    * @memberof ProductService
    */
-  public static async store(body: Record<string, string>): Promise<Product> {
-    const user = await Product.create(body)
+  public static async store(body: Record<string, any>): Promise<Product> {
+    delete body['views']
 
-    Event.emit('new:product', user)
+    const product = await Product.create(body)
 
-    return user
+    Event.emit('new:product', product)
+
+    return product
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param {number} id
+   * @param {Record<string, any>} body
+   * @return {*}  {(Promise<Product | any>)}
+   * @memberof ProductService
+   */
+  public static async update(id: number, body: Record<string, any>): Promise<Product | any> {
+    const product = await Product.find(id)
+
+    if (!product) return 'Produto não encontrado.'
+
+    product.views = body.views
+
+    product.save()
+
+    return product
   }
 }

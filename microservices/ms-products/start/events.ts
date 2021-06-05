@@ -9,4 +9,5 @@
 */
 import Event from '@ioc:Adonis/Core/Event'
 
-Event.on('new:user', 'UserListener.onNewUser')
+Event.on('new:product', 'ProductListener.onNewProduct')
+Event.on('view:product', 'ProductListener.onNewViewProduct')

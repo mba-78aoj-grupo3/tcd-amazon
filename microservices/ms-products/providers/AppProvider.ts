@@ -1,6 +1,5 @@
-import { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import Notification from 'App/Entities/Notification'
 import ConsulConfig from 'Config/consul'
+import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
@@ -16,7 +15,6 @@ export default class AppProvider {
 
   public async ready() {
     // App is ready
-    // Notification.consumeEvents('user-created')
   }
 
   public async shutdown() {

@@ -11,6 +11,7 @@ export default class Products extends BaseSchema {
       table.string('description')
       table.string('product_category_id')
       table.bigInteger('price')
+      table.bigInteger('views')
       table.jsonb('json_data')
     })
   }

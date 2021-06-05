@@ -3,12 +3,21 @@
     tags:
       - Produtos - Rotas principais
     security: []
-    description: Listagem de produto por categorias
+    description: Listagem de produtos mais vistos por categoria.
     produces:
       - application/json
+    parameters:
+      - name: qtd_per_category
+        in: query
+        required: true
+        description: Quantidade de produtos a serem exibidos por categoria
+        schema:
+          type : number
+          format: int64
+          minimum: 1
     responses:
       '200':
-        description: A list of product categories.
+        description:
         content:
           application/json:
             schema:

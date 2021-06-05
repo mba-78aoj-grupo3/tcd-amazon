@@ -5,8 +5,7 @@
  * file.
  */
 
-import User from 'App/Models/Product'
-import { ModelObject } from '@ioc:Adonis/Lucid/Model'
+import Product from 'App/Models/Product'
 
 declare module '@ioc:Adonis/Core/Event' {
   /*
@@ -29,6 +28,7 @@ declare module '@ioc:Adonis/Core/Event' {
   |
   */
   interface EventsList {
-    'new:user': User
+    'new:product': Product
+    'view:product': Product
   }
 }

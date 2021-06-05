@@ -17,7 +17,11 @@ export default class ProductCategoryService {
    * @memberof ProductCategoryService
    */
   public static async index(qs: Record<string, any>): Promise<ProductCategory[]> {
-    const productsCategories = await ProductCategory.query().preload('product')
+    const limit = qs.qtd_per_category ? qs.qtd_per_category : 3
+
+    const productsCategories = await ProductCategory.query().preload('product', (productQuery) => {
+      productQuery.orderBy('views', 'desc').limit(limit)
+    })
 
     return productsCategories
   }
@@ -48,10 +52,10 @@ export default class ProductCategoryService {
    * @memberof ProductCategoryService
    */
   public static async store(body: Record<string, string>): Promise<ProductCategory> {
-    const user = await ProductCategory.create(body)
+    const productCategory = await ProductCategory.create(body)
 
-    Event.emit('new:product.category', user)
+    Event.emit('new:product.category', productCategory)
 
-    return user
+    return productCategory
   }
 }

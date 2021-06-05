@@ -18,7 +18,7 @@ paths:
             minimum: 1
       responses:
         '200':
-          description: A list of products.
+          description:
           content:
             application/json:
               schema:
@@ -70,21 +70,21 @@ paths:
       tags:
         - Produtos - Rotas principais
       security: []
-      description: Product List
+      description: Busca de produto por palavra chave.
       produces:
         - application/json
       parameters:
         - name: search
           in: query
           required: true
-          description: Palavra chave para pesquisar em produtos.
+          description: Palavra chave para pesquisar produtos.
           schema:
             type : string
             format: string
             minimum: 1
       responses:
         '200':
-          description: A list of products.
+          description:
           content:
             application/json:
               schema:
@@ -136,14 +136,14 @@ paths:
   /api/products:
     get:
       tags:
-        - Produtos - Rotas Gerais
+        - Produtos - Rotas Auxiliares
       security: []
-      description: Product List
+      description: Listagem de produtos
       produces:
         - application/json
       responses:
         '200':
-          description: A list of products.
+          description:
           content:
             application/json:
               schema:
@@ -194,7 +194,7 @@ paths:
 
     post:
       tags:
-        - Produtos - Rotas Gerais
+        - Produtos - Rotas Auxiliares
       security: []
       description: Criação de produtos
       produces:
