@@ -2,6 +2,7 @@ import User from 'App/Models/User'
 import Event from '@ioc:Adonis/Core/Event'
 import { Exception } from '@poppinss/utils'
 import WishItem from 'App/Models/WishItem'
+import Product from 'App/Models/Product'
 
 /**
  *
@@ -63,12 +64,43 @@ export default class UserService {
    * @return {*}  {(Promise<User | null>)}
    * @memberof UserService
    */
-  public static async wishList(id: number): Promise<User | null> {
+  public async wishList(id: number): Promise<any> {
     const user = await User.find(id)
 
     await user?.load('wishList')
 
-    return user
+    if (user?.wishList === undefined) return []
+
+    const product = new Product()
+
+    return await Promise.all(
+      (user as User).wishList.map(async (wishItem) => {
+        const result = await product.find(wishItem.productId).getContent()
+
+        return this.setWishList(wishItem, result)
+      })
+    )
+  }
+
+  /**
+   *
+   *
+   * @param {*} item
+   * @param {*} product
+   * @return {*}
+   * @memberof UserService
+   */
+  public setWishList(item: any, product: any): Record<string, any> {
+    const wishItem: any = {}
+
+    wishItem.id = item.id
+    wishItem.created_at = item.createdAt
+    wishItem.updated_at = item.updatedAt
+    wishItem.user_id = item.userId
+    wishItem.product_id = item.productId
+    wishItem.product = product
+
+    return wishItem
   }
 
   /**
@@ -83,10 +115,14 @@ export default class UserService {
   public static async wishItemCreate(
     id: number,
     body: Record<string, any>
-  ): Promise<WishItem | null> {
-    // const user = await User.find(id)
+  ): Promise<WishItem | any> {
+    const user = await User.find(id)
 
-    // if (user === null) return 'Usuário não encontrado.'
+    if (user === null) return 'Usuário não encontrado.'
+
+    const product = await new Product().find(body.product_id).getContent()
+
+    if (product.id === undefined) return 'Produto não encontrado.'
 
     return await WishItem.create(body)
   }

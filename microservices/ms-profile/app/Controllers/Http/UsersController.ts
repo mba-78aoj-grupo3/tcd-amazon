@@ -57,7 +57,7 @@ export default class UsersController {
   public async wishList(ctx: HttpContextContract): Promise<User | null> {
     const id = ctx.params.id as number
 
-    return await UserService.wishList(id)
+    return await new UserService().wishList(id)
   }
 
   /**

@@ -1,6 +1,9 @@
 import { DateTime } from 'luxon'
+import { column, BaseModel, hasMany, HasMany, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+
 import OrderItem from './OrderItem'
-import { column, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import OrderEvent from './OrderEvent'
+import OrderEventType from './OrderEventType'
 
 /**
  *
@@ -53,7 +56,7 @@ export default class Order extends BaseModel {
    * @memberof Order
    */
   @column()
-  public orderStatusId: number
+  public lastEventTypeId: number
 
   /**
    *
@@ -67,9 +70,29 @@ export default class Order extends BaseModel {
   /**
    *
    *
+   * @type {BelongsTo<typeof OrderEventType>}
+   * @memberof Order
+   */
+  @belongsTo(() => OrderEventType, {
+    foreignKey: 'lastEventTypeId',
+  })
+  public lastEventType: BelongsTo<typeof OrderEventType>
+
+  /**
+   *
+   *
    * @type {HasMany<typeof OrderItem>}
    * @memberof Order
    */
   @hasMany(() => OrderItem)
   public orderItems: HasMany<typeof OrderItem>
+
+  /**
+   *
+   *
+   * @type {BelongsTo<typeof OrderEvent>}
+   * @memberof Order
+   */
+  @hasMany(() => OrderEvent)
+  public orderEvent: HasMany<typeof OrderEvent>
 }

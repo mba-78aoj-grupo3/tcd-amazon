@@ -27,7 +27,7 @@ Route.get('/health', async () => {
 })
 
 Route.group(() => {
-  Route.get('order-status', 'OrderController.history')
+  Route.get('orders/:id/status', 'OrderController.history')
 })
   // .middleware('auth:api')
   .prefix('api')

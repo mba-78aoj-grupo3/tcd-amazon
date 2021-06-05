@@ -44,10 +44,14 @@ export default class ProductService {
    * @return {*}  {(Promise<Product | null>)}
    * @memberof ProductService
    */
-  public static async show(id: number): Promise<Product | null> {
+  public static async show(id: number): Promise<Product | any> {
     const product = await Product.find(id)
 
-    return product
+    return {
+      data: {
+        attributes: product,
+      },
+    }
   }
 
   /**

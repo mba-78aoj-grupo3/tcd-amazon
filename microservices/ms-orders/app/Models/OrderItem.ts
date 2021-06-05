@@ -70,6 +70,15 @@ export default class OrderItem extends BaseModel {
    * @memberof OrderItem
    */
   @column()
+  public product: any
+
+  /**
+   *
+   *
+   * @type {number}
+   * @memberof OrderItem
+   */
+  @column()
   public quantity: number
 
   /**

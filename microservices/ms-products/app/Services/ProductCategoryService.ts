@@ -17,9 +17,9 @@ export default class ProductCategoryService {
    * @memberof ProductCategoryService
    */
   public static async index(qs: Record<string, any>): Promise<ProductCategory[]> {
-    const products = await ProductCategory.query().preload('product')
+    const productsCategories = await ProductCategory.query().preload('product')
 
-    return products
+    return productsCategories
   }
 
   /**
@@ -30,10 +30,14 @@ export default class ProductCategoryService {
    * @return {*}  {(Promise<ProductCategory | null>)}
    * @memberof ProductCategoryService
    */
-  public static async show(id: number): Promise<ProductCategory | null> {
-    const product = await ProductCategory.find(id)
+  public static async show(id: number): Promise<ProductCategory | any> {
+    const productsCategory = await ProductCategory.find(id)
 
-    return product
+    return {
+      data: {
+        attributes: productsCategory,
+      },
+    }
   }
 
   /**
@@ -46,7 +50,7 @@ export default class ProductCategoryService {
   public static async store(body: Record<string, string>): Promise<ProductCategory> {
     const user = await ProductCategory.create(body)
 
-    Event.emit('new:product', user)
+    Event.emit('new:product.category', user)
 
     return user
   }

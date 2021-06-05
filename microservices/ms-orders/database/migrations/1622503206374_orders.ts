@@ -8,7 +8,7 @@ export default class Orders extends BaseSchema {
       table.increments('id')
       table.timestamps(true)
       table.integer('customer_id')
-      table.integer('order_status_id')
+      table.integer('last_event_type_id')
       table.integer('amount_value')
     })
   }

@@ -12,14 +12,12 @@ import { KafkaClient, Consumer, Producer, ProduceRequest, Message } from 'kafka-
 const consume = (
   topic: string,
   onSuccess: CallableFunction,
-  onFail?: CallableFunction
+  onFail: CallableFunction
 ): Message | void => {
   const client = new KafkaClient({ kafkaHost: Env.get('KAFKA_SERVER') })
   const consumer = new Consumer(client, [{ topic }], { autoCommit: false })
 
   consumer.on('message', (message) => onSuccess(message))
-
-  if (onFail === undefined) return
 
   consumer.on('error', (err) => onFail(err))
 

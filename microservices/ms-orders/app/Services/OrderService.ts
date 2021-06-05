@@ -1,6 +1,5 @@
 import Order from 'App/Models/Order'
-import Event from '@ioc:Adonis/Core/Event'
-import { Exception } from '@poppinss/utils'
+import Product from 'App/Models/Product'
 
 /**
  *
@@ -16,11 +15,31 @@ export default class OrderService {
    * @return {*}  {Promise<Order[]>}
    * @memberof OrderService
    */
-  public static async history(): Promise<Order[]> {
-    const orders = await Order.all()
+  public static async history(id: number): Promise<Order | any> {
+    const order = await Order.query()
+      .preload('lastEventType')
+      .preload('orderItems')
+      .preload('orderEvent', (orderEventQuery) => {
+        orderEventQuery.preload('orderEventType')
+      })
+      .where('id', '=', id)
+      .first()
 
-    await orders[0].load('orderItems')
+    if (order?.orderItems === undefined) {
+      return order !== null ? order : {}
+    }
 
-    return orders
+    const product = new Product()
+
+    await Promise.all(
+      (order as Order).orderItems.map(async (orderItem) => {
+        const result = await product.find(orderItem.productId).getContent()
+        orderItem.product = result
+
+        return orderItem
+      })
+    )
+
+    return order
   }
 }

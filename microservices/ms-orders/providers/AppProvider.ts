@@ -16,6 +16,12 @@ export default class AppProvider {
 
   public async ready() {
     // App is ready
+    const Event = (await import('@ioc:Adonis/Core/Event')).default
+    Kafka.consume(
+      'order-status-change',
+      (message) => Event.emit('change:order-order', message),
+      (error) => console.log(error)
+    )
   }
 
   public async shutdown() {
