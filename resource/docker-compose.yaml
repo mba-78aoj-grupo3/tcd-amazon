@@ -118,23 +118,23 @@ services:
 
 #Microservices
 
-  ms-profile:
-    image: ms-profile-v12
-    container_name: ms-profiles
-    hostname: ms-profiles
-    restart: always
-    ports:
-      - 8033:8033
-    depends_on:
-      - postgres
-      - kafka
-      - consul-client
-      - consul-server1
-      - consul-server2
-      - consul-server3
-    command: sh -c "/usr/src/app/script.sh"
-    networks:
-      - network-docker
+  # ms-profile:
+  #   image: ms-profile-v12
+  #   container_name: ms-profiles
+  #   hostname: ms-profiles
+  #   restart: always
+  #   ports:
+  #     - 8033:8033
+  #   depends_on:
+  #     - postgres
+  #     - kafka
+  #     - consul-client
+  #     - consul-server1
+  #     - consul-server2
+  #     - consul-server3
+  #   command: sh -c "/usr/src/app/script.sh"
+  #   networks:
+  #     - network-docker
 
 networks:
   network-docker:
