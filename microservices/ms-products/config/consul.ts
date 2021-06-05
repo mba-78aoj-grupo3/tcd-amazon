@@ -41,11 +41,11 @@ export default class ConsulConfig {
   private registry(): void {
     this.consul.agent.service.register(
       {
-        name: Env.get('NAME'),
+        name: Env.get('APP_NAME'),
         address: Env.get('HOST'),
         port: Env.get('PORT'),
         check: {
-          http: `${Env.get('APP_URI')}/health`,
+          http: Env.get('APP_URI') + '/health',
           interval: '10s',
         },
       },

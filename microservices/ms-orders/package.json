@@ -34,6 +34,7 @@
     "@phc/bcrypt": "^1.0.2",
     "adonis5-swagger": "^1.2.3",
     "axios": "^0.21.1",
+    "consul": "^0.40.0",
     "kafka-node": "^5.0.0",
     "luxon": "^1.27.0",
     "opossum": "^6.0.1",

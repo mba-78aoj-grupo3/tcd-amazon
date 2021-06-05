@@ -154,6 +154,42 @@ services:
     networks:
       - network-docker      
 
+  ms-products:
+    image: ms-products-v5
+    container_name: ms-products
+    hostname: ms-products
+    restart: always
+    ports:
+      - 8035:8035
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
+    networks:
+      - network-docker 
+
+  ms-order:
+    image: ms-order
+    container_name: ms-order
+    hostname: ms-order
+    restart: always
+    ports:
+      - 8036:8036
+    depends_on:
+      - postgres
+      - kafka
+      - consul-client
+      - consul-server1
+      - consul-server2
+      - consul-server3
+    command: sh -c "/usr/src/app/script.sh"
+    networks:
+      - network-docker      
+
 networks:
   network-docker:
     driver: bridge
