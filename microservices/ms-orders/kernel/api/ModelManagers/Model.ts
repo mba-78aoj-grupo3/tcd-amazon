@@ -1,86 +1,85 @@
-import Handling from './Handling';
-import { get, isEmpty } from 'lodash';
-import Pagination from './Pagination';
-import { ResolveArray } from '../helpers/index';
-import { TypeError } from '@kernel-js/exceptions';
-import QueryBuilder from '../QueryManagers/QueryBuilder';
-import QueryModifier from '../QueryManagers/QueryModifier';
-import { Config, ModelSignature } from '../Interfaces/index';
+import Handling from './Handling'
+import { get, isEmpty } from 'lodash'
+import Pagination from './Pagination'
+import { ResolveArray } from '../helpers/index'
+import { TypeError } from '@kernel-js/exceptions'
+import QueryBuilder from '../QueryManagers/QueryBuilder'
+import QueryModifier from '../QueryManagers/QueryModifier'
+import { Config, ModelSignature } from '../Interfaces/index'
 
 /**
  * Model Abstract class
  */
 export abstract class Model implements ModelSignature {
-    
   /**
    * @type {Handling}
    */
-  protected handling: Handling;
+  protected handling: Handling
 
   /**
    * @type {QueryModifier}
    */
-  protected queryModifier: QueryModifier;
+  protected queryModifier: QueryModifier
 
   /**
    * @type {QueryBuilder}
    */
-  public queryBuilder: QueryBuilder;
+  public queryBuilder: QueryBuilder
 
   /**
    * @type {Number|String}
    */
-  public id!: number | String;
+  public id!: number | String
 
   /**
    * @type {String}
    */
-  public type!: string;
+  public type!: string
 
   /**
    * @type {Config}
    */
-  public config!: Config;
+  public config!: Config
 
   /**
    * @type {Any}
    */
-  public attributes: any = {};
+  public attributes: any = {}
 
   /**
    * @type {Any}
    */
-  public relationships: any = {};
+  public relationships: any = {}
 
   /**
    * @type {String}
    */
-  get resourceName() {
-    return '';
-  };
+  public get resourceName() {
+    return ''
+  }
 
   /**
    * @type {String}
    */
-  abstract get baseUrl(): string;
+  abstract get baseUrl(): string
 
   /**
    * @type {Array<string>}
    */
-  abstract get fields(): Array<string>;
+  abstract get fields(): Array<string>
 
   /**
    * @type {Array<string>}
    */
-  abstract get relationshipNames(): Array<string>;
+  abstract get relationshipNames(): Array<string>
 
   /**
    *
    */
   constructor() {
-    this.queryBuilder = new QueryBuilder();
-    this.queryModifier = new QueryModifier(this.resourceName);
-    this.handling = new Handling();
+    this.queryBuilder = new QueryBuilder()
+    this.queryModifier = new QueryModifier(this.resourceName)
+    this.handling = new Handling()
   }
 
   /**
@@ -94,22 +93,22 @@ export abstract class Model implements ModelSignature {
    * @param  {Config} config
    * @returns Promise
    */
-  protected abstract request(config: Config): Promise<any>;
+  protected abstract request(config: Config): Promise<any>
 
   /**
    * @param  {boolean=true} hydrate
    * @returns Promise
    */
-  public async getEntity(hydrate:boolean = true): Promise<any> {
+  public async getEntity(hydrate: boolean = true): Promise<any> {
     return new Promise((resolve, reject) => {
       this.request(this.config)
-      .then( response => {
-        const res = (response.data) ? this.handling.respond(this, response.data, hydrate) : response;
-        resolve(res);
-      })
-      .catch( response => {
-        reject(response)
-      });
+        .then((response) => {
+          const res = response.data ? this.handling.respond(this, response.data, hydrate) : response
+          resolve(res)
+        })
+        .catch((response) => {
+          reject(response)
+        })
     })
   }
 
@@ -117,21 +116,21 @@ export abstract class Model implements ModelSignature {
    * @returns Promise
    */
   public getContent(): Promise<any> {
-    return this.getEntity(false);
+    return this.getEntity(false)
   }
 
   /**
    * @returns string
    */
   public getUrl(): string {
-    return this.config.url;
+    return this.config.url
   }
 
   /**
    * @returns string
    */
   public getUrlConfig(): Config {
-    return this.config;
+    return this.config
   }
 
   /**
@@ -141,11 +140,11 @@ export abstract class Model implements ModelSignature {
     this.config = {
       method: 'GET',
       url: `${this.resourceUrl()}${this.queryBuilder.getQuery(this)}`,
-    };
+    }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
 
-    return this;
+    return this
   }
 
   /**
@@ -155,11 +154,11 @@ export abstract class Model implements ModelSignature {
     this.config = {
       method: 'GET',
       url: `${this.resourceUrl()}/search${this.queryBuilder.getQuery(this)}`,
-    };
+    }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
 
-    return this;
+    return this
   }
 
   /**
@@ -170,19 +169,19 @@ export abstract class Model implements ModelSignature {
       this.config = {
         method: 'PUT',
         url: `${this.resourceUrl()}/${this.id}`,
-        data: this.handling.serialize(this)
-      };
+        data: this.handling.serialize(this),
+      }
     } else {
       this.config = {
         method: 'POST',
         url: `${this.resourceUrl()}`,
-        data: this.handling.serialize(this)
-      };
+        data: this.handling.serialize(this),
+      }
     }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
 
-    return this.request(this.config);
+    return this.request(this.config)
   }
 
   /**
@@ -193,11 +192,11 @@ export abstract class Model implements ModelSignature {
    * @memberof Model
    */
   public attach(entities: Array<Model>): Promise<any> {
-    this._mountRelationships(entities);
+    this._mountRelationships(entities)
 
-    this.config.method = 'PATCH';
+    this.config.method = 'PATCH'
 
-    return this.request(this.config);
+    return this.request(this.config)
   }
 
   /**
@@ -208,12 +207,12 @@ export abstract class Model implements ModelSignature {
    * @memberof Model
    */
   public detach(entities: Array<Model>): Promise<any> {
-    this._mountRelationships(entities);
+    this._mountRelationships(entities)
 
-    this.config.method = 'PATCH';
-    this.config.data = {data: []};
+    this.config.method = 'PATCH'
+    this.config.data = { data: [] }
 
-    return this.request(this.config);
+    return this.request(this.config)
   }
 
   /**
@@ -224,11 +223,11 @@ export abstract class Model implements ModelSignature {
    * @memberof Model
    */
   public createPivot(entities: Array<Model>): Promise<any> {
-    this._mountRelationships(entities);
+    this._mountRelationships(entities)
 
-    this.config.method = 'POST';
+    this.config.method = 'POST'
 
-    return this.request(this.config);
+    return this.request(this.config)
   }
 
   /**
@@ -239,11 +238,11 @@ export abstract class Model implements ModelSignature {
    * @memberof Model
    */
   public deletePivot(entities: Array<Model>): Promise<any> {
-    this._mountRelationships(entities);
+    this._mountRelationships(entities)
 
-    this.config.method = 'DELETE';
+    this.config.method = 'DELETE'
 
-    return this.request(this.config);
+    return this.request(this.config)
   }
 
   /**
@@ -254,26 +253,26 @@ export abstract class Model implements ModelSignature {
    * @memberof Model
    */
   private _mountRelationships(entities: Array<Model>): void {
-    const type = get(entities[0], 'resourceName');
+    const type = get(entities[0], 'resourceName')
 
     if (isEmpty(type) || entities.some((entity) => entity.resourceName !== type)) {
-      throw new TypeError(`The entities must be of the same type `, 422);
+      throw new TypeError(`The entities must be of the same type `, 422)
     }
 
     this.relationships['data'] = entities.map((entity) => {
       return {
         type: entity.resourceName.toLowerCase(),
         id: entity.id,
-      };
-    });
+      }
+    })
 
     this.config = {
       method: '',
       url: `${this.resourceUrl()}/${this.id}/relationships/${type.toLowerCase()}`,
-      data: this.handling.serialize(this)
-    };
+      data: this.handling.serialize(this),
+    }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
   }
 
   /**
@@ -282,17 +281,20 @@ export abstract class Model implements ModelSignature {
    */
   public find(id: number | string): Model {
     if (typeof id !== 'number' && typeof id !== 'string') {
-      throw new TypeError(`Argument 1 passed must be of the type number or string, ${typeof id} given`, 500);
+      throw new TypeError(
+        `Argument 1 passed must be of the type number or string, ${typeof id} given`,
+        500
+      )
     }
 
     this.config = {
       method: 'GET',
-      url: `${this.resourceUrl()}/${id}${this.queryBuilder.getQuery(this)}`
-    };
+      url: `${this.resourceUrl()}/${id}${this.queryBuilder.getQuery(this)}`,
+    }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
 
-    return this;
+    return this
   }
 
   /**
@@ -301,12 +303,12 @@ export abstract class Model implements ModelSignature {
   public delete(): Model {
     this.config = {
       method: 'DELETE',
-      url: `${this.resourceUrl()}/${this.id}`
-    };
+      url: `${this.resourceUrl()}/${this.id}`,
+    }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
 
-    return this;
+    return this
   }
 
   /**
@@ -316,36 +318,42 @@ export abstract class Model implements ModelSignature {
    */
   public paginate(perPage: number, page: number): Promise<any> {
     if (typeof perPage !== 'number') {
-      throw new TypeError(`Argument 1 passed must be of the type number, ${typeof this.id} given`, 500);
+      throw new TypeError(
+        `Argument 1 passed must be of the type number, ${typeof this.id} given`,
+        500
+      )
     }
 
     if (typeof page !== 'number') {
-      throw new TypeError(`Argument 2 passed must be of the type number, ${typeof this.id} given`, 500);
+      throw new TypeError(
+        `Argument 2 passed must be of the type number, ${typeof this.id} given`,
+        500
+      )
     }
 
     this.queryBuilder.pagination = {
       size: perPage,
-      number: page
+      number: page,
     }
 
     this.config = {
       method: 'GET',
-      url: `${this.resourceUrl()}${this.queryBuilder.getQuery(this)}`
-    };
+      url: `${this.resourceUrl()}${this.queryBuilder.getQuery(this)}`,
+    }
 
-    this.queryBuilder.resetQuery(this);
+    this.queryBuilder.resetQuery(this)
 
     return new Promise((resolve, reject) => {
       this.request(this.config)
-      .then( response => {
-        const pagination = response.data.meta.pagination;
-        const res = (response.data) ? this.handling.respond(this, response.data, false) : response;
+        .then((response) => {
+          const pagination = response.data.meta.pagination
+          const res = response.data ? this.handling.respond(this, response.data, false) : response
 
-        resolve(new Pagination(pagination, res));
-      })
-      .catch( response => {
-        reject(response)
-      });
+          resolve(new Pagination(pagination, res))
+        })
+        .catch((response) => {
+          reject(response)
+        })
     })
   }
 
@@ -356,7 +364,7 @@ export abstract class Model implements ModelSignature {
   @ResolveArray()
   public with(...includes: Array<string>): Model {
     this.queryBuilder.includes = this.queryModifier.include(includes)
-    return this;
+    return this
   }
 
   /**
@@ -365,8 +373,8 @@ export abstract class Model implements ModelSignature {
    */
   @ResolveArray()
   public select(...fields: Array<string>): Model {
-    this.queryBuilder.fields = this.queryModifier.select(fields);
-    return this;
+    this.queryBuilder.fields = this.queryModifier.select(fields)
+    return this
   }
 
   /**
@@ -375,8 +383,8 @@ export abstract class Model implements ModelSignature {
    */
   @ResolveArray()
   public orderByAsc(...column: Array<string>): Model {
-    this._orderBy('asc', ...column);
-    return this;
+    this._orderBy('asc', ...column)
+    return this
   }
 
   /**
@@ -385,8 +393,8 @@ export abstract class Model implements ModelSignature {
    */
   @ResolveArray()
   public orderByDesc(...column: Array<string>): Model {
-    this._orderBy('desc', ...column);
-    return this;
+    this._orderBy('desc', ...column)
+    return this
   }
 
   /**w
@@ -395,8 +403,10 @@ export abstract class Model implements ModelSignature {
    * @returns Model
    */
   public where(key: string, value: string): Model {
-    this.queryBuilder.filters = this.queryBuilder.filters.concat([this.queryModifier.filter(key, value)]);
-    return this;
+    this.queryBuilder.filters = this.queryBuilder.filters.concat([
+      this.queryModifier.filter(key, value),
+    ])
+    return this
   }
 
   /**
@@ -404,8 +414,8 @@ export abstract class Model implements ModelSignature {
    * @returns Model
    */
   public limit(value: string): Model {
-    this.where('limit', value);
-    return this;
+    this.where('limit', value)
+    return this
   }
 
   /**
@@ -414,8 +424,7 @@ export abstract class Model implements ModelSignature {
    * @returns Model
    */
   private _orderBy(direction: string, ...column: Array<string>): Model {
-    this.queryBuilder.sort = this.queryModifier.orderBy(column, direction);
-    return this;
+    this.queryBuilder.sort = this.queryModifier.orderBy(column, direction)
+    return this
   }
-
 }

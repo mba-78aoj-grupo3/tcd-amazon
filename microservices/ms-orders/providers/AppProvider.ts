@@ -1,13 +1,22 @@
 import Kafka from 'Config/kafka'
+import Env from '@ioc:Adonis/Core/Env'
 import ConsulConfig from 'Config/consul'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
+  private consul!: ConsulConfig
 
   public register() {
     // Register your own bindings
-    new ConsulConfig()
+    this.consul = new ConsulConfig()
+
+    this.consul
+      .get('microservices')
+      .then((result) => {
+        Env.set('MS_PRODUCT_URL', result['MS_PRODUCT_URL'])
+      })
+      .catch((errr) => console.log(errr))
   }
 
   public async boot() {

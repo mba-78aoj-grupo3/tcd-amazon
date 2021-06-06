@@ -1,3 +1,4 @@
+import Env from '@ioc:Adonis/Core/Env'
 import BaseApiModel from 'Config/model-api'
 
 /**
@@ -14,7 +15,7 @@ export default class Product extends BaseApiModel {
    * @type {string}
    * @memberof Product
    */
-  public baseUrl: string = 'http://192.168.0.108:3334/api'
+  public baseUrl: string = Env.get('MS_PRODUCT_URL')
 
   /**
    *
