@@ -123,7 +123,7 @@ services:
 #Microservices
 
   ms-profiles:
-    image: gustavoivo/ms-profile:0.0.2
+    image: gustavoivo/ms-profile:0.0.3
     container_name: ms-profiles
     hostname: ms-profiles
     restart: always
@@ -177,7 +177,7 @@ services:
       - network-docker 
 
   ms-order:
-    image: gustavoivo/ms-order:0.0.2
+    image: gustavoivo/ms-order:0.0.3
     container_name: ms-order
     hostname: ms-order
     restart: always
@@ -210,7 +210,7 @@ services:
       - consul-server3
     command: sh -c "/usr/src/app/script.sh"
     networks:
-      - network-docker     
+      - network-docker   
 
 
 networks:
