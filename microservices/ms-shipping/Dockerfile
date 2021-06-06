@@ -6,6 +6,7 @@ ENV APP_URI=http://ms-shipping:8037
 ENV APP_NAME=ms-shipping
 ENV NODE_ENV=development
 ENV APP_KEY=TgHpLj48KWIhlzJbMBrPZmcY5mt3LTap
+ENV GOOGLE_MAPS_API_KEY=AIzaSyDVQkzgkJJ-ks0wcvM4lKF2VnYVW0aNDtg
 
 ENV HASH_DRIVER=bcrypt
 
