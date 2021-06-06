@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { Model } from '../kernel/api/ModelManagers/Model'
+import { circuitBreakerOpossum } from './circuitBreak'
 
 /**
  *
@@ -44,7 +44,7 @@ export default class BaseApiModel extends Model {
    * @return {*}  {Promise<void>}
    * @memberof BaseApiModel
    */
-  public async request(config: any): Promise<void> {
-    return axios.request(config)
+  public async request(config: any): Promise<any> {
+    return circuitBreakerOpossum.fire(config.url, config)
   }
 }

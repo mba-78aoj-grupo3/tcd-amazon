@@ -72,8 +72,8 @@ export default class ConsulConfig implements IConsulConfig {
   public async get(key: string, defaultValue?: string): Promise<any> {
     const result: string = await this.consul.kv.get<string>(key)
 
-    if (result) {
-      return JSON.parse(result)
+    if (result['Value']) {
+      return JSON.parse(result['Value'])
     }
 
     return defaultValue
