@@ -54,7 +54,7 @@ const produce = (
         console.log('[kafka-producer -> ' + topic + ']: broker failed to update: ' + err)
         onFail !== undefined ? onFail(err) : null
       } else {
-        onSuccess !== undefined ? onSuccess(data) : null
+        onSuccess !== undefined ? onSuccess(payloads, data) : null
       }
     })
   })

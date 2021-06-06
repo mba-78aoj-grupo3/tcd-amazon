@@ -1,6 +1,5 @@
 import Shipping from 'App/Models/Shipping'
 import Event from '@ioc:Adonis/Core/Event'
-import { Exception } from '@poppinss/utils'
 import ShippingEventType from 'App/Models/ShippingEventType'
 import ShippingEvent from 'App/Models/ShippingEvent'
 import { calculateLatitudinalDistance, transformAddressToLatLog } from 'Config/maps'
@@ -89,9 +88,19 @@ export default class ShippingService {
       shippingEventTypeId: shippingEventType.id,
     })
 
-    await shipping.load('shippingEvents')
+    const response = await Shipping.query()
+      .preload('shippingEvents', (query) => {
+        query.preload('shippingEventType')
+      })
+      .first()
 
-    return shipping
+    Event.emit(
+      'change:shippingEvent',
+      (response as Shipping).shippingEvents[(response as Shipping).shippingEvents?.length - 1]
+        .shippingEventTypeId
+    )
+
+    return response
   }
 
   /**

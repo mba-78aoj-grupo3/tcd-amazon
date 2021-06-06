@@ -65,7 +65,7 @@ paths:
                         type: string
                         example: Livros
 
-  /api/products/search?search=livro:
+  /api/products/search?search=café:
     get:
       tags:
         - Produtos - Rotas principais
@@ -78,6 +78,7 @@ paths:
           in: query
           required: true
           description: Palavra chave para pesquisar produtos.
+          example: café
           schema:
             type : string
             format: string

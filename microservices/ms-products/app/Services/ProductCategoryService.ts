@@ -17,10 +17,10 @@ export default class ProductCategoryService {
    * @memberof ProductCategoryService
    */
   public static async index(qs: Record<string, any>): Promise<ProductCategory[]> {
-    const limit = qs.qtd_per_category ? qs.qtd_per_category : 3
+    // const limit = qs.qtd_per_category ? qs.qtd_per_category : 3
 
     const productsCategories = await ProductCategory.query().preload('product', (productQuery) => {
-      productQuery.orderBy('views', 'desc').limit(limit)
+      productQuery.orderBy('views', 'desc')
     })
 
     return productsCategories

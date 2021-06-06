@@ -6,15 +6,6 @@
     description: Listagem de produtos mais vistos por categoria.
     produces:
       - application/json
-    parameters:
-      - name: qtd_per_category
-        in: query
-        required: true
-        description: Quantidade de produtos a serem exibidos por categoria
-        schema:
-          type : number
-          format: int64
-          minimum: 1
     responses:
       '200':
         description:

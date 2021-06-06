@@ -5,13 +5,16 @@ export default class TicketCategorySeeder extends BaseSeeder {
   public async run() {
     await TicketCategory.createMany([
       {
-        description: 'Não estou conseguindo logar',
+        description: 'Baixa prioridade',
       },
       {
-        description: 'Minha senha está bloqueada',
+        description: 'Média prioridade',
       },
       {
-        description: 'Não recebi o produto',
+        description: 'Alta prioridade',
+      },
+      {
+        description: 'Urgência',
       },
     ])
   }

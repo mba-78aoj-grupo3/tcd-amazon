@@ -1,4 +1,5 @@
 import Order from 'App/Models/Order'
+import OrderEvent from 'App/Models/OrderEvent'
 import Product from 'App/Models/Product'
 
 /**
@@ -39,6 +40,18 @@ export default class OrderService {
         return orderItem
       })
     )
+
+    return order
+  }
+
+  public static async updateOrderEvent(orderId: number, body: Record<string, any>): Promise<any> {
+    const order = await Order.find(orderId)
+
+    if (!order) return 'Pedido não encontrado.'
+
+    await OrderEvent.create(body)
+
+    await order.load('orderEvent')
 
     return order
   }

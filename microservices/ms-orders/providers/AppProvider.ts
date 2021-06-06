@@ -27,8 +27,8 @@ export default class AppProvider {
     // App is ready
     const Event = (await import('@ioc:Adonis/Core/Event')).default
     Kafka.consume(
-      'order-status-change',
-      (message) => Event.emit('change:order-order', message),
+      'change_shippingEvent',
+      (message) => Event.emit('change:shippingEvent', message),
       (error) => console.log(error)
     )
   }

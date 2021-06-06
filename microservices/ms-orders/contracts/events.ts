@@ -29,5 +29,6 @@ declare module '@ioc:Adonis/Core/Event' {
   */
   interface EventsList {
     'new-order-created': Order
+    'change:shippingEvent': number
   }
 }

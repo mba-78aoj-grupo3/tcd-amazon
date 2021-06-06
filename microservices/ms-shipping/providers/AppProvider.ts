@@ -1,6 +1,5 @@
 import ConsulConfig from 'Config/consul'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import { calculateLatitudinalDistance, transformAddressToLatLog } from 'Config/maps'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}

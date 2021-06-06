@@ -10,3 +10,4 @@
 import Event from '@ioc:Adonis/Core/Event'
 
 Event.on('new:order', 'OrderListener.onNewOrderCreated')
+Event.on('change:shippingEvent', 'OrderListener.onChangeShippingEvent')

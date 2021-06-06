@@ -8,3 +8,5 @@
 |
 */
 import Event from '@ioc:Adonis/Core/Event'
+
+Event.on('change:shippingEvent', 'ShippingListener.onChangeShippingEvent')

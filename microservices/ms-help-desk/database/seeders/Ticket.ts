@@ -6,15 +6,21 @@ export default class TicketSeeder extends BaseSeeder {
     await Ticket.createMany([
       {
         title: 'Problemas no acesso',
-        description: 'Não estou conseguindo logar',
+        description: 'Não estou conseguindo logar na minha conta',
+        ticketCategoryId: 3,
+        ticketStatusId: 2,
       },
       {
-        title: 'Senha bloqueada',
-        description: 'Minha senha está bloqueada',
+        title: 'A tela de perfil está com problemas',
+        description: 'Não consigo ver todas as minhas opções',
+        ticketCategoryId: 1,
+        ticketStatusId: 1,
       },
       {
-        title: 'Problema na entrega',
-        description: 'Não recebi o produto',
+        title: 'Não consigo finalizar a compra',
+        description: 'Depois de colocar os dados do cartão, fica em loading eterno.',
+        ticketCategoryId: 4,
+        ticketStatusId: 4,
       },
     ])
   }
