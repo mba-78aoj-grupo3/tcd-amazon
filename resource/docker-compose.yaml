@@ -123,7 +123,7 @@ services:
 #Microservices
 
   ms-profiles:
-    image: gustavoivo/ms-profile:0.0.3
+    image: gustavoivo/ms-profile:0.0.4
     container_name: ms-profiles
     hostname: ms-profiles
     restart: always
@@ -141,7 +141,7 @@ services:
       - network-docker
 
   ms-help-desk:
-    image: gustavoivo/ms-help-desk:0.0.2
+    image: gustavoivo/ms-help-desk:0.0.3
     container_name: ms-help-desk
     hostname: ms-help-desk
     restart: always
@@ -159,7 +159,7 @@ services:
       - network-docker      
 
   ms-products:
-    image: gustavoivo/ms-products:0.0.2
+    image: gustavoivo/ms-products:0.0.3
     container_name: ms-products
     hostname: ms-products
     restart: always
@@ -177,7 +177,7 @@ services:
       - network-docker 
 
   ms-order:
-    image: gustavoivo/ms-order:0.0.3
+    image: gustavoivo/ms-order:0.0.4
     container_name: ms-order
     hostname: ms-order
     restart: always
@@ -195,7 +195,7 @@ services:
       - network-docker      
 
   ms-shipping:
-    image: gustavoivo/ms-shipping:0.0.2
+    image: gustavoivo/ms-shipping:0.0.3
     container_name: ms-shipping
     hostname: ms-shipping
     restart: always
