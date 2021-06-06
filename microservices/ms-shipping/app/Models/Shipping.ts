@@ -14,7 +14,7 @@ export default class Shipping extends BaseModel {
   public updatedAt: DateTime
 
   @column()
-  public title: string
+  public name: string
 
   @column()
   public description: string
