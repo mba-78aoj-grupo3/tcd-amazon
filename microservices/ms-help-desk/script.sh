@@ -1,2 +1,2 @@
 #!/bin/bash
-node ace migration:run && npm run serve
+node ace migration:run && node ace db:seed && npm run serve
