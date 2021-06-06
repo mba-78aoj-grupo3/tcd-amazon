@@ -76,6 +76,8 @@ services:
     volumes:
      - ./consul/server1.json:/consul/config/server1.json:ro
      - ./consul/certs/:/consul/config/certs/:ro
+     - ./consul/microservices.json:/microservices.json:rw
+     - ./consul/script.sh:/script.sh
     networks:
       - network-docker
     ports:
@@ -83,7 +85,8 @@ services:
       - "8600:8600/tcp"
       - "8600:8600/udp"
     command: "agent -bootstrap-expect=3"
-
+    #command: sh script.sh
+    
   consul-server2:
     image: consul:1.9.3
     container_name: consul-server2
